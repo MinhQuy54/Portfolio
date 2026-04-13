@@ -1,0 +1,71 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# =========================
+# Virtual Environment
+# =========================
+env/
+env*/
+venv/
+venv*/
+ENV/
+.virtualenv/
+.venv/
+
+# =========================
+# Environment variables
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# IDE / Editor
+# =========================
+.vscode/
+.idea/
+
+# =========================
+# Docker
+# =========================
+docker-compose.override.yml
+
+# =========================
+# Build / cache
+# =========================
+build/
+dist/
+*.egg-info/
+
+# =========================
+# Database / local storage
+# =========================
+*.sqlite3
+
+# =========================
+# Qdrant local storage (IMPORTANT)
+# =========================
+qdrant_storage/
+
+# =========================
+# Uploaded / generated data
+# =========================
+chatbot/app/data/*.pdf
+chatbot/app/data/*.jsonl
+!chatbot/app/data/Portfolio.pdf
+!.gitkeep
