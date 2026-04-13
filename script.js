@@ -11,13 +11,13 @@ const i18n = {
         nav_projects: "Dự án",
         btn_github: "GitHub",
         btn_hire: "Thuê tôi",
-        
+
         sec_about: "Giới thiệu",
         sec_about_sub: "Backend Developer & AI Integration Enthusiast",
         about_1: "Tôi là <strong>sinh viên năm 4 ngành Khoa học Máy tính</strong> tại Đại học Công nghệ Sài Gòn (STU), đam mê xây dựng hệ thống backend có khả năng mở rộng cao và các giải pháp cloud-native.",
         about_2: "Hiện tại, tôi đang mở rộng chuyên môn về <strong>hệ thống phân tán, kiến trúc microservices</strong>, và tích hợp AI (RAG, LLMs) vào sản phẩm thực tế để tạo ra những giá trị đột phá.",
         about_3: "Với tính cách hòa đồng, tích cực và điềm tĩnh, tôi luôn đam mê tìm tòi các giải pháp giải quyết các bài toán kỹ thuật phức tạp, tối ưu hóa hiệu suất và thiết kế kiến trúc vững chắc. Ngoài đam mê lập trình, tôi rất yêu chó và luôn tự hào về quê hương Cái Bè, Tiền Giang của mình.",
-        
+
         sec_skills: "Kỹ năng Kỹ thuật",
         sec_skills_sub: "Công nghệ tôi sử dụng",
         skill_lang: "LANGUAGES",
@@ -26,7 +26,7 @@ const i18n = {
         skill_db: "DATABASES",
         skill_cloud: "CLOUD",
         skill_devops: "DEVOPS & TOOLS",
-        
+
         sec_education: "Học vấn",
         sec_education_sub: "Quá trình đào tạo",
         edu_stu_name: "Đại học Công nghệ Sài Gòn (STU)",
@@ -36,7 +36,7 @@ const i18n = {
         edu_hs_name: "Trường THPT Phạm Thành Trung",
         edu_hs_deg: "Tốt nghiệp THPT",
         edu_hs_desc: "Quê hương Cái Bè, Tiền Giang. Nơi nuôi dưỡng những ngọn lửa đam mê đầu tiên.",
-        
+
         sec_projects: "Dự án Tiêu biểu",
         sec_projects_sub: "Những sản phẩm được xây dựng bằng đam mê",
         proj1_1: "Xây dựng hệ thống hỏi đáp tự động từ tài liệu nội bộ (PDF).",
@@ -55,7 +55,7 @@ const i18n = {
         proj4_2: "Tích hợp quản lý hồ sơ bệnh án, lịch hẹn và tra cứu thông tin y tế bệnh nhân.",
         btn_github_code: "GitHub Code",
         btn_live: "Live Demo",
-        
+
         bot_title: "Trợ lý AI của Quý",
         bot_welcome: "Xin chào! Tôi là trợ lý AI (RAG) đại diện cho Ngô Minh Quý. Bạn muốn hỏi tôi thông tin gì về Quý?",
         bot_input: "Nhập câu hỏi..."
@@ -71,13 +71,13 @@ const i18n = {
         nav_projects: "Projects",
         btn_github: "GitHub",
         btn_hire: "Hire Me",
-        
+
         sec_about: "About Me",
         sec_about_sub: "Backend Developer & AI Integration Enthusiast",
         about_1: "I am a <strong>4th-year Computer Science student</strong> at Saigon Technology University (STU), passionate about building highly scalable backend systems and cloud-native solutions.",
         about_2: "Currently, I am expanding my expertise in <strong>distributed systems, microservices architecture</strong>, and integrating AI (RAG, LLMs) into real-world products to create breakthrough values.",
         about_3: "With a sociable, positive, and calm personality, I am always eager to solve complex technical problems, optimize performance, and design solid architectures. Apart from coding, I deeply love dogs and am proud of my hometown, Cai Be, Tien Giang.",
-        
+
         sec_skills: "Technical Skills",
         sec_skills_sub: "Technologies I Use",
         skill_lang: "LANGUAGES",
@@ -86,7 +86,7 @@ const i18n = {
         skill_db: "DATABASES",
         skill_cloud: "CLOUD",
         skill_devops: "DEVOPS & TOOLS",
-        
+
         sec_education: "Education",
         sec_education_sub: "Academic Background",
         edu_stu_name: "Saigon Technology University (STU)",
@@ -96,7 +96,7 @@ const i18n = {
         edu_hs_name: "Pham Thanh Trung High School",
         edu_hs_deg: "High School Diploma",
         edu_hs_desc: "Hometown Cai Be, Tien Giang. Where the first sparks of passion were nurtured.",
-        
+
         sec_projects: "Featured Projects",
         sec_projects_sub: "Products built with passion",
         proj1_1: "Built an automated internal document QA system (PDF).",
@@ -115,7 +115,7 @@ const i18n = {
         proj4_2: "Integrated medical records, appointments scheduling & patient data lookup.",
         btn_github_code: "GitHub Code",
         btn_live: "Live Demo",
-        
+
         bot_title: "Quy's AI Assistant",
         bot_welcome: "Hello! I am an AI assistant representing Ngo Minh Quy. What would you like to know about him?",
         bot_input: "Type a question..."
@@ -125,18 +125,18 @@ const i18n = {
 let currentLang = 'vi';
 
 function setLang(lang) {
-    if(lang !== 'vi' && lang !== 'en') return;
+    if (lang !== 'vi' && lang !== 'en') return;
     currentLang = lang;
-    
+
     // Update active button
     document.getElementById('lang-vi').classList.remove('active');
     document.getElementById('lang-en').classList.remove('active');
     document.getElementById('lang-' + lang).classList.add('active');
-    
+
     // Replace text content
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
-        if(i18n[lang][key]) {
+        if (i18n[lang][key]) {
             el.innerHTML = i18n[lang][key];
         }
     });
@@ -144,7 +144,7 @@ function setLang(lang) {
     // Replace placeholders
     document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
         const key = el.getAttribute('data-i18n-placeholder');
-        if(i18n[lang][key]) {
+        if (i18n[lang][key]) {
             el.placeholder = i18n[lang][key];
         }
     });
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', () => {
         let current = '';
         const scrollY = window.pageYOffset;
-        
+
         sections.forEach(sec => {
             const sectionTop = sec.offsetTop;
             const sectionHeight = sec.clientHeight;
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const targetId = link.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);
-            if(targetSection) {
+            if (targetSection) {
                 targetSection.scrollIntoView({ behavior: 'smooth' });
             }
         });
@@ -207,8 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function sendChatMessage() {
         const text = chatInput.value.trim();
-        if(!text) return;
-        
+        if (!text) return;
+
         // Append User Message
         const userDiv = document.createElement('div');
         userDiv.className = 'chat-msg user';
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             // Adjust port to match standard or 8000
-            const response = await fetch('http://localhost:8000/chat', {
+            const response = await fetch('https://portfolio-ewkz.onrender.com/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: text })
@@ -253,6 +253,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     chatSendBtn.addEventListener('click', sendChatMessage);
     chatInput.addEventListener('keypress', (e) => {
-        if(e.key === 'Enter') sendChatMessage();
+        if (e.key === 'Enter') sendChatMessage();
     });
 });
