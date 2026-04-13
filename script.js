@@ -58,7 +58,9 @@ const i18n = {
 
         bot_title: "Trợ lý AI của Quý",
         bot_welcome: "Xin chào! Tôi là trợ lý AI (RAG) đại diện cho Ngô Minh Quý. Bạn muốn hỏi tôi thông tin gì về Quý?",
-        bot_input: "Nhập câu hỏi..."
+        bot_input: "Nhập câu hỏi...",
+        footer_thanks: "Cảm ơn bạn đã ghé thăm Portfolio của tôi!",
+        visitor_count: "Lượt truy cập:"
     },
     en: {
         name: "Ngo Minh Quy",
@@ -118,7 +120,9 @@ const i18n = {
 
         bot_title: "Quy's AI Assistant",
         bot_welcome: "Hello! I am an AI assistant representing Ngo Minh Quy. What would you like to know about him?",
-        bot_input: "Type a question..."
+        bot_input: "Type a question...",
+        footer_thanks: "Thank you for visiting my Portfolio!",
+        visitor_count: "Page views:"
     }
 };
 
