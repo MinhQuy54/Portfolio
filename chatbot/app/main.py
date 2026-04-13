@@ -1,4 +1,4 @@
-import logging,os, asyncio
+import logging, os, asyncio
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
@@ -8,30 +8,83 @@ from qdrant_client import QdrantClient
 from google import genai
 from app.embeddings import embed_text
 
+# Load env
 load_dotenv()
+
 api_key = os.getenv("API_KEY")
 qdrant_url = os.getenv("QDRANT_URL")
 qdrant_api_key = os.getenv("QDRANT_API_KEY")
 collection_name = os.getenv("QDRANT_COLLECTION_NAME", "portfolio")
 
 if not api_key:
-    raise ValueError("Chưa tìm thấy API_KEY trong file .env!")
+    raise ValueError("Missing API_KEY")
 if not qdrant_url:
-    raise ValueError("Chưa tìm thấy QDRANT_URL trong file .env!")
+    raise ValueError("Missing QDRANT_URL")
 if not qdrant_api_key:
-    raise ValueError("Chưa tìm thấy QDRANT_API_KEY trong file .env!")
+    raise ValueError("Missing QDRANT_API_KEY")
 
+# Init clients
 client = genai.Client(api_key=api_key)
 qdrant_client = QdrantClient(
     url=qdrant_url,
     api_key=qdrant_api_key,
 )
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] %(message)s",
-)
+
+# Logging
+logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# =========================
+# FASTAPI APP
+# =========================
+app = FastAPI(
+    title="Portfolio Chatbot",
+    version="1.0.0"
+)
+
+# =========================
+# ✅ FIX CORS (QUAN TRỌNG)
+# =========================
+allowed_origins = os.getenv("CORS_ALLOWED_ORIGINS", "")
+
+if allowed_origins:
+    allowed_origins = [o.strip().rstrip("/") for o in allowed_origins.split(",")]
+else:
+    allowed_origins = [
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ]
+
+print("CORS ALLOWED:", allowed_origins)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=allowed_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# =========================
+# API MODEL
+# =========================
+class ChatRequest(BaseModel):
+    message: str
+
+# =========================
+# HEALTH CHECK
+# =========================
+@app.get("/")
+async def root():
+    return {"message": "API running"}
+
+@app.get("/health")
+async def health():
+    return {"status": "ok"}
+
+# =========================
+# GEMINI STREAM
+# =========================
 async def call_api_gemini(prompt):
     models = [
         "gemini-2.5-flash",
@@ -45,62 +98,19 @@ async def call_api_gemini(prompt):
                 model=model_name,
                 contents=prompt
             )
-            found_content = False
+
             for chunk in response:
                 if chunk.text:
-                    found_content = True
                     yield chunk.text
                     await asyncio.sleep(0.01)
-            
-            if found_content:
-                return
+
+            return
 
         except Exception as e:
-            logger.error(f"Lỗi model {model_name}: {str(e)}")
-            continue 
-            
-    yield "Hiện tại hệ thống AI đang quá tải. Quý vui lòng thử lại sau vài giây nhé!"
+            logger.error(f"Model {model_name} error: {e}")
+            continue
 
-class ChatRequest(BaseModel):
-    message : str
-
-app = FastAPI(
-    title="Portfolio Chatbot",
-    description="Chatbot support seeking product",
-    version="1.0.0"
-    )
-
-cors_allowed_origins = {
-    origin.strip()
-    for origin in os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
-    if origin.strip()
-}
-frontend_url = os.getenv("FRONTEND_URL")
-if frontend_url:
-    cors_allowed_origins.add(frontend_url.rstrip("/"))
-
-if not cors_allowed_origins:
-    cors_allowed_origins = {
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:5500",
-        "http://127.0.0.1:5500",
-        "http://localhost:8080",
-        "http://127.0.0.1:8080",
-    }
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=sorted(cors_allowed_origins),
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-@app.get("/health")
-async def health_check():
-    return {"status": "ok"}
-
+    yield "Hệ thống AI đang bận, thử lại sau nhé!"
 @app.post('/chat')
 async def chat_with_veggie(request : ChatRequest):
     user_query = request.message
