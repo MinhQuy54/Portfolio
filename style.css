@@ -445,6 +445,24 @@ body {
 .tag-qdrant, .tag-llm, .tag-rag { border-color: rgba(224, 76, 107, 0.4); color: #ff5e83; }
 .tag-qdrant:hover, .tag-llm:hover, .tag-rag:hover { background: rgba(224, 76, 107, 0.1); box-shadow: 0 0 15px rgba(224, 76, 107, 0.3); }
 
+.tag-es { border-color: rgba(0, 191, 179, 0.4); color: #00bfb3; }
+.tag-es:hover { background: rgba(0, 191, 179, 0.1); box-shadow: 0 0 15px rgba(0, 191, 179, 0.3); }
+
+.tag-kibana { border-color: rgba(224, 76, 107, 0.4); color: #ff005a; }
+.tag-kibana:hover { background: rgba(224, 76, 107, 0.1); box-shadow: 0 0 15px rgba(224, 76, 107, 0.3); }
+
+.tag-minio { border-color: rgba(199, 44, 72, 0.4); color: #c72c48; }
+.tag-minio:hover { background: rgba(199, 44, 72, 0.1); box-shadow: 0 0 15px rgba(199, 44, 72, 0.3); }
+
+.tag-grpc { border-color: rgba(63, 177, 229, 0.4); color: #3fb1e5; }
+.tag-grpc:hover { background: rgba(63, 177, 229, 0.1); box-shadow: 0 0 15px rgba(63, 177, 229, 0.3); }
+
+.tag-ollama { border-color: rgba(248, 250, 252, 0.4); color: #f8fafc; }
+.tag-ollama:hover { background: rgba(248, 250, 252, 0.1); box-shadow: 0 0 15px rgba(248, 250, 252, 0.3); }
+
+.tag-sklearn { border-color: rgba(248, 153, 57, 0.4); color: #f89939; }
+.tag-sklearn:hover { background: rgba(248, 153, 57, 0.1); box-shadow: 0 0 15px rgba(248, 153, 57, 0.3); }
+
 .tag.base:hover {
     background: rgba(14, 165, 233, 0.15);
     border-color: rgba(14, 165, 233, 0.3);
